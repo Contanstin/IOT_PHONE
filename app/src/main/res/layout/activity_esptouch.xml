@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_esptouch"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+   >
+<!--    <include layout="@layout/above_title" />-->
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:orientation="horizontal"
+            android:background="@mipmap/phone_topbackground"
+            >
+
+            <ImageButton
+                android:id="@+id/left_imgBtn"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/icon_fanhui" />
+
+            <TextView
+                android:id="@+id/wifiOption"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="17sp"/>
+
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        >
+    <TextView
+        android:id="@+id/apSsidLabel"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="@string/esptouch1_ssid_title"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="16dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+        <TextView
+            android:id="@+id/apSsidText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="4dp"
+            android:singleLine="true"
+            android:layout_marginLeft="4dp" />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/apBssidLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:singleLine="true"
+        android:text="@string/esptouch1_bssid_title"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/apSsidLabel" />
+
+    <TextView
+        android:id="@+id/apBssidText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        app:layout_constraintBaseline_toBaselineOf="@id/apBssidLabel"
+        app:layout_constraintStart_toEndOf="@id/apBssidLabel"
+        app:layout_constraintTop_toTopOf="@id/apBssidLabel"
+        android:layout_marginLeft="4dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/apPasswordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/bg_border"
+        android:hint="@string/esptouch1_password_title"
+        app:layout_constraintTop_toBottomOf="@id/apBssidLabel"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/apPasswordEdit"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:hint="@string/password_t"
+            android:background="@null"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+        <ImageView
+            android:id="@+id/psw_hide"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/apPasswordEdit"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/deviceCountLayout"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/apPasswordLayout">
+        <TextView
+            android:layout_width="120dp"
+            android:text="@string/esptouch1_device_count_title"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_marginLeft="16dp"
+            />
+        <EditText
+            android:id="@+id/deviceCountEdit"
+            android:layout_width="120dp"
+            android:layout_marginTop="10dp"
+            android:inputType="number"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:text="1"
+            android:gravity="center"
+            android:background="@drawable/bg_border" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/packageModeGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/deviceCountLayout">
+
+        <RadioButton
+            android:id="@+id/packageBroadcast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/esptouch1_package_broadcast" />
+
+        <RadioButton
+            android:id="@+id/packageMulticast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/esptouch1_package_multicast" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/messageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintTop_toBottomOf="@id/packageModeGroup"
+        app:layout_goneMarginStart="4dp" />
+
+    <Button
+        android:id="@+id/confirmBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/esptouch1_confirm"
+        app:layout_constraintBottom_toBottomOf="parent" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

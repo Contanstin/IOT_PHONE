@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript">
+        function startActivity() {
+               try{
+                    var str = document.getElementById("name").value
+                    web.startActivity(str);
+               }catch(e){
+                    document.getElementById("ss").innerHTML=e;
+               }
+             }
+    </script>
+</head>
+<body>
+<input id="name" type="button" value="button" ontouchend="startActivity()"/>
+</body>
+</html>
