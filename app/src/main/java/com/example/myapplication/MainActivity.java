@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
@@ -45,9 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public LocationClient mLocationClient = null;
+
     public BDAbstractLocationListener myListener = new MyLocationListener();
-    public String city = "";
+
     public LocationClientOption option;
+
+    //单击时间间隔
+    private long clickInterval = 0;
 
 
     public class MyLocationListener extends BDAbstractLocationListener {
@@ -55,13 +60,14 @@ public class MainActivity extends AppCompatActivity {
         public void onReceiveLocation(BDLocation location) {
             double latitude = location.getLatitude();    //获取纬度信息
             double longitude = location.getLongitude();    //获取经度信息
-
             String coordinate = longitude + "," + latitude;
 
             String country = location.getCountry();    //获取国家
             String province = location.getProvince();    //获取省份
             String city = location.getCity();    //获取城市
-            String adr = country + "/" + province + "/" + city;
+            String district = location.getDistrict();    //获取区县
+            String street = location.getStreet();    //获取街道信息
+            String adr = country + "/" + province + "/" + city + "/" + district + "/" + street;
 
             //调用js前端项目的coor函数，将经纬度返回给前端
             String method = "javascript:coor('" + coordinate + "')";
@@ -75,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -190,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startActivityForResult(new Intent(this, CaptureActivity.class), requestCode);
             } else {
-                Toast.makeText(this, "请打开相机权限", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.camera_permission), Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == 2) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -198,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                 mLocationClient.start();//开始定位
             } else {
                 // 用户拒绝之后
-                Toast.makeText(MainActivity.this, "未开启定位权限,请手动到设置去开启权限", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.location_permission), Toast.LENGTH_LONG).show();
             }
         }
 
@@ -270,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
                 if (bundle.getInt(XQRCode.RESULT_TYPE) == XQRCode.RESULT_SUCCESS) {
                     result = bundle.getString(XQRCode.RESULT_DATA);
                 } else if (bundle.getInt(XQRCode.RESULT_TYPE) == XQRCode.RESULT_FAILED) {
-                    Toast.makeText(this, "解析二维码失败", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getResources().getString(R.string.qr_code_fail), Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -278,16 +283,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * 连续双击退出软件
+     * @param keyCode
+     * @param event
+     * @return
+     */
     @Override
-    public void onBackPressed() {
-        if (web.canGoBack()) {
-            web.goBack();
-            web.removeAllViews();
-        } else {
-            super.onBackPressed();
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - clickInterval) > 2000) {
+                Common.toast(getResources().getString(R.string.click_exit));
+                clickInterval = System.currentTimeMillis();
+            }
+            else {
+                finish();
+            }
+            return true;
         }
+        return super.onKeyDown(keyCode, event);
     }
 
+//    @Override
+//    public void onBackPressed() {
+//        if (web.canGoBack()) {
+//            web.goBack();
+//            web.removeAllViews();
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
+
+    //调用接口
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

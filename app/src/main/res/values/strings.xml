@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">android web</string>
+    <string name="app_name">工控物联网</string>
     <string name="about_app_version">App 版本: %s</string>
     <string name="menu_item_about">关于 App</string>
+    <!-- wifi设置（esptuch) -->
     <string name="esptouch_message_permission">需要位置权限来获取 Wi-Fi 信息。 \n点击申请权限</string>
     <string name="esptouch_message_location">请打开 GPS 以获取 Wi-Fi 信息。</string>
     <string name="esptouch_message_wifi_connection">请先连上 Wi-Fi</string>
@@ -37,5 +38,14 @@
     <string name="esptouch1_about_version">EspTouch 版本: %s</string>
     <string name="esptouch1_wifi_5g_message">设备不支持 5G Wi-Fi, 请确认当前连接的 Wi-Fi 为 2.4G, 或者您可以尝试选择组播</string>
     <string name="wifiOption">WIFI设置</string>
+
+    <!-- 其他 -->
+    <string name="camera_permission">请打开相机权限</string>
+    <string name="location_permission">未开启定位权限,请手动到设置去开启权限</string>
+    <string name="qr_code_fail">解析二维码失败</string>
+    <string name="click_exit">再按一次退出程序！</string>
+
+
+
 
 </resources>
